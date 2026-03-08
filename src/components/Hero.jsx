@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, Fragment } from 'react'
 
 const RINGS = [
   { r: 210, inc: 0.28, color: '#3d7fff', speed: 0.0048, nParticles: 10, label: 'PANDEMIC'  },
@@ -8,6 +8,11 @@ const RINGS = [
 const FOV = 900
 const CONN_THRESHOLD = 130
 const GLOBAL_SPEED = 0.0018
+
+const HERO_TEXT     = 'COSMOSLAB'
+const SCRAMBLE_CHARS = '!<>-_\/[]{}@#$%^&*XZQJKVW0123456789'
+const SUB1 = 'Pandemic. Ecosystem. Evolution.'
+const SUB2 = 'One engine. Three simulators. Infinite emergence.'
 
 function ringPoint(r, inc, theta, ry) {
   const px = r * Math.cos(theta)
@@ -26,8 +31,14 @@ function project(xr, yr, zr, cx, cy) {
 }
 
 export default function Hero() {
-  const canvasRef = useRef(null)
-  const [tick, setTick] = useState(0)
+  const canvasRef  = useRef(null)
+  const sectionRef  = useRef(null)
+  const [tick, setTick]             = useState(0)
+  const [scrambleKey, setScrambleKey] = useState(0)
+  const [scrambled,   setScrambled]   = useState(HERO_TEXT)
+  const [scrambleDone, setScrambleDone] = useState(false)
+  const [subLine1, setSubLine1] = useState('')
+  const [subLine2, setSubLine2] = useState('')
 
   useEffect(() => {
     const id = setInterval(() => setTick((t) => t + 1), 80)
@@ -214,12 +225,102 @@ export default function Hero() {
     }
   }, [])
 
+  // Re-trigger scramble every time the Hero scrolls into view
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setScrambleDone(false)
+          setSubLine1('')
+          setSubLine2('')
+          setScrambleKey((k) => k + 1)
+        }
+      },
+      { threshold: 0.3 }
+    )
+    obs.observe(section)
+    return () => obs.disconnect()
+  }, [])
+
+  // Text-scramble effect
+  useEffect(() => {
+    if (scrambleKey === 0) return
+    let frame = 0
+    const id = setInterval(() => {
+      const resolvedChars = Math.floor(frame / 1.5)
+      setScrambled(
+        HERO_TEXT.split('').map((ch, i) =>
+          i < resolvedChars
+            ? ch
+            : SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)]
+        ).join('')
+      )
+      frame++
+      if (resolvedChars >= HERO_TEXT.length) {
+        setScrambled(HERO_TEXT)
+        setScrambleDone(true)
+        clearInterval(id)
+      }
+    }, 22)
+    return () => clearInterval(id)
+  }, [scrambleKey])
+
+  // Sequential typewriter on subtitle after scramble finishes
+  useEffect(() => {
+    if (!scrambleDone) return
+    let alive = true
+    let i = 0
+    const id1 = setInterval(() => {
+      if (!alive) return
+      i++
+      setSubLine1(SUB1.slice(0, i))
+      if (i >= SUB1.length) {
+        clearInterval(id1)
+        let j = 0
+        const id2 = setInterval(() => {
+          if (!alive) { clearInterval(id2); return }
+          j++
+          setSubLine2(SUB2.slice(0, j))
+          if (j >= SUB2.length) clearInterval(id2)
+        }, 22)
+      }
+    }, 30)
+    return () => { alive = false; clearInterval(id1) }
+  }, [scrambleDone])
+
   const beta = (0.28 + (tick % 7) * 0.003).toFixed(3)
   const nodes = 183 + (tick % 13)
   const conns = 41 + (tick % 5)
 
+  // Count-up for static stats (fires once on mount)
+  const [statSims,  setStatSims]  = useState(0)
+  const [statAlgos, setStatAlgos] = useState(0)
+  useEffect(() => {
+    let s = 0, a = 0
+    const id = setInterval(() => {
+      s = Math.min(s + 1, 3)
+      a = Math.min(a + 1, 12)
+      setStatSims(s)
+      setStatAlgos(a)
+      if (s >= 3 && a >= 12) clearInterval(id)
+    }, 60)
+    return () => clearInterval(id)
+  }, [])
+
+  const magMove = (e) => {
+    const el = e.currentTarget
+    const rect = el.getBoundingClientRect()
+    const dx = (e.clientX - (rect.left + rect.width / 2)) / rect.width
+    const dy = (e.clientY - (rect.top + rect.height / 2)) / rect.height
+    el.style.transform = `translate(${dx * 8}px, ${dy * 8}px)`
+  }
+  const magLeave = (e) => { e.currentTarget.style.transform = '' }
+
   return (
     <section
+      ref={sectionRef}
       style={{
         minHeight: '100vh',
         paddingTop: '52px',
@@ -287,6 +388,7 @@ export default function Hero() {
 
         {/* Headline */}
         <h1
+          className={scrambleDone ? 'hero-title-glow' : ''}
           style={{
             fontFamily: 'Syne, sans-serif',
             fontWeight: 800,
@@ -297,9 +399,16 @@ export default function Hero() {
             margin: '0 0 32px 0',
           }}
         >
-          COS
-          <span style={{ color: '#c8ff00' }}>MOS</span>
-          <br />LAB
+          {scrambled.split('').map((ch, i) => (
+            <Fragment key={i}>
+              {i === 6 && <br />}
+              <span style={{
+                color: HERO_TEXT[i] === ch
+                  ? (i >= 3 && i <= 5 ? '#c8ff00' : '#e8e6e3')
+                  : '#c8ff00',
+              }}>{ch}</span>
+            </Fragment>
+          ))}
         </h1>
 
         {/* Sub */}
@@ -312,17 +421,28 @@ export default function Hero() {
             lineHeight: 1.7,
             maxWidth: '380px',
             marginBottom: '44px',
+            minHeight: '3.4em',
           }}
         >
-          Pandemic. Ecosystem. Evolution.
-          <br />
-          <span style={{ color: '#888' }}>One engine. Three simulators. Infinite emergence.</span>
+          {subLine1}
+          {subLine1.length > 0 && subLine1.length < SUB1.length && (
+            <span style={{ color: '#c8ff00', animation: 'blink 0.7s step-end infinite' }}>|</span>
+          )}
+          {subLine1.length === SUB1.length && <br />}
+          {subLine2 && (
+            <span style={{ color: '#888' }}>
+              {subLine2}
+              {subLine2.length < SUB2.length && (
+                <span style={{ color: '#c8ff00', animation: 'blink 0.7s step-end infinite' }}>|</span>
+              )}
+            </span>
+          )}
         </p>
 
         {/* CTAs */}
         <div style={{ display: 'flex', gap: '12px' }}>
-          <a href="#devguide" className="btn-primary">Get Started</a>
-          <a href="#architecture" className="btn-outline">Architecture</a>
+          <a href="#devguide" className="btn-primary" onMouseMove={magMove} onMouseLeave={magLeave}>Get Started</a>
+          <a href="#architecture" className="btn-outline" onMouseMove={magMove} onMouseLeave={magLeave}>Architecture</a>
         </div>
       </div>
 
@@ -337,8 +457,8 @@ export default function Hero() {
         }}
       >
         {[
-          { label: 'Simulators',        value: '3',    accent: false },
-          { label: 'Shared Algorithms', value: '12+',  accent: false },
+          { label: 'Simulators',        value: statSims || '—',     accent: false },
+          { label: 'Shared Algorithms', value: statAlgos ? statAlgos + '+' : '—', accent: false },
           { label: 'β  live',           value: beta,   accent: true  },
           { label: 'Network Nodes',     value: nodes,  accent: false },
           { label: 'Connections',       value: conns,  accent: true  },

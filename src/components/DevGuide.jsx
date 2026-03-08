@@ -105,8 +105,8 @@ curl -X POST http://localhost:8000/replay \\
 
   return (
     <section id="devguide" style={{ position: 'relative', padding: '0', background: '#000' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616', marginBottom: '0' }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>07 — Developer Guide</span>
+      <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616', marginBottom: '0' }}>
+        <span className="type-label" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>07 — Developer Guide</span>
         <div style={{ flex: 1, height: '1px', background: '#161616' }} />
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#333', letterSpacing: '0.2em' }}>FROM CLONE TO LIVE SIM IN 4 MIN</span>
       </div>
@@ -116,7 +116,7 @@ curl -X POST http://localhost:8000/replay \\
           <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(3.5rem, 6vw, 6.5rem)', lineHeight: 0.88, letterSpacing: '-0.03em', color: '#e8e6e3', margin: '0 0 28px 0' }}>
             FROM ZERO<br />TO SIM<br /><span style={{ color: '#c8ff00' }}>IN 4 min</span>
           </h2>
-          <p style={{ color: '#555', fontSize: '14px', lineHeight: 1.8, maxWidth: '440px' }}>
+          <p className="glow-text" style={{ color: '#555', fontSize: '14px', lineHeight: 1.8, maxWidth: '440px' }}>
             The five steps below take you from a fresh clone to streaming live simulation ticks in your terminal. All infrastructure is Docker-managed — no Python virtualenvs, no Redis installs, no port conflicts.
           </p>
         </div>
@@ -131,9 +131,9 @@ curl -X POST http://localhost:8000/replay \\
             { label: 'Gzip bundle size',       value: '380 kB',   note: 'Vite production build' },
             { label: 'Scenario replay fidelity', value: '100%',   note: 'deterministic with fixed seed' },
           ].map(({ label, value, note }) => (
-            <div key={label} style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'start', padding: '10px 0', borderBottom: '1px solid #0f0f0f' }}>
+            <div key={label} className="row-item" style={{ display: 'grid', gridTemplateColumns: '1fr auto', alignItems: 'start', padding: '10px 0', borderBottom: '1px solid #0f0f0f' }}>
               <div>
-                <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#555' }}>{label}</div>
+                <div className="glow-text" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#555' }}>{label}</div>
                 <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', marginTop: '2px' }}>{note}</div>
               </div>
               <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '14px', color: '#c8ff00', whiteSpace: 'nowrap' }}>{value}</div>
@@ -159,7 +159,7 @@ curl -X POST http://localhost:8000/replay \\
       </div>
 
       {/* Content panel — balanced 1fr 1fr */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#1c1c1c' }}>
+      <div key={activeStep} className="tab-panel" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#1c1c1c' }}>
 
         {/* LEFT — step description */}
         <div style={{ background: '#060606', padding: '40px 40px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
@@ -169,14 +169,14 @@ curl -X POST http://localhost:8000/replay \\
               <div>
                 <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color, letterSpacing: '0.25em', marginBottom: '20px', opacity: 0.7 }}>STEP {n}</div>
                 <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.6rem, 2.5vw, 2.4rem)', lineHeight: 1.1, letterSpacing: '-0.02em', color: '#e8e6e3', marginBottom: '24px' }}>{title}</div>
-                <p style={{ fontSize: '14px', color: '#555', lineHeight: 1.85, marginBottom: '32px' }}>{sub}</p>
+                <p className="glow-text" style={{ fontSize: '14px', color: '#555', lineHeight: 1.85, marginBottom: '32px' }}>{sub}</p>
                 <div style={{ borderTop: '1px solid #111', paddingTop: '24px' }}>
                   <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#444', letterSpacing: '0.2em', marginBottom: '16px' }}>WHAT THIS DOES</div>
                   <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                     {what.map(w => (
-                      <li key={w} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
-                        <span style={{ color, fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>▸</span>
-                        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#444', lineHeight: 1.6 }}>{w}</span>
+                      <li key={w} className="row-item" style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                        <span style={{ color, fontSize: '10px', marginTop: '3px', flexShrink: 0 }}>&#9658;</span>
+                        <span className="glow-text" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#444', lineHeight: 1.6 }}>{w}</span>
                       </li>
                     ))}
                   </ul>
@@ -194,6 +194,7 @@ curl -X POST http://localhost:8000/replay \\
               <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#444', letterSpacing: '0.25em', marginBottom: '24px' }}>
                 TERMINAL
               </div>
+              <div className="code-scroll-wrap">
               <pre style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12.5px', lineHeight: 1.85, margin: 0, overflowX: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
                 {code.split('\n').map((line, i) => {
                   const isComment = line.trim().startsWith('#')
@@ -206,6 +207,7 @@ curl -X POST http://localhost:8000/replay \\
                   )
                 })}
               </pre>
+              </div>
             </div>
           )
         })()}

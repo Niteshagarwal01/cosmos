@@ -53,11 +53,27 @@ export default function Footer() {
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#444', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
           CosmosLab © 2026 — Complex Systems Simulation Platform
         </span>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ width: '5px', height: '5px', background: '#c8ff00', display: 'inline-block' }} />
-          <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#c8ff0060', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-            v2.0 — Beta
-          </span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            style={{
+              background: 'transparent', border: '1px solid #1c1c1c',
+              color: '#555', fontFamily: 'JetBrains Mono, monospace',
+              fontSize: '10px', letterSpacing: '0.2em', padding: '6px 14px',
+              cursor: 'pointer', textTransform: 'uppercase',
+              transition: 'color 0.15s, border-color 0.15s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#c8ff00'; e.currentTarget.style.borderColor = '#c8ff0044' }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#555'; e.currentTarget.style.borderColor = '#1c1c1c' }}
+          >
+            ↑ BACK TO TOP
+          </button>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ width: '5px', height: '5px', background: '#c8ff00', display: 'inline-block' }} />
+            <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#c8ff0060', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              v2.0 — Beta
+            </span>
+          </div>
         </div>
       </div>
     </footer>

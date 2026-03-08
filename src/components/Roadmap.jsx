@@ -38,7 +38,7 @@ export default function Roadmap() {
       id: 'P3', num: '03',
       title: 'Reproducibility',
       status: 'PLANNED',
-      statusColor: '#3d7fff',
+      statusColor: '#6fa3ff',
       period: 'Week 6–7',
       pct: 0,
       summary: 'Every run becomes a citable, replayable artifact. Bit-identical output from any seed on any machine.',
@@ -54,7 +54,7 @@ export default function Roadmap() {
       id: 'P4', num: '04',
       title: 'Scale & Polish',
       status: 'PLANNED',
-      statusColor: '#888',
+      statusColor: '#bbbbbb',
       period: 'Week 8–10',
       pct: 0,
       summary: 'Performance hardening, network SIR on real contact graphs, and a full 3-panel linked view at 60 fps.',
@@ -73,16 +73,21 @@ export default function Roadmap() {
     <section id="roadmap" style={{ position: 'relative', padding: '0', background: '#000' }}>
 
       {/* Label bar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616' }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>08 — Roadmap</span>
+      <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616' }}>
+        <span className="type-label" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>08 — Roadmap</span>
         <div style={{ flex: 1, height: '1px', background: '#161616' }} />
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#333', letterSpacing: '0.2em' }}>10-WEEK SHIP PLAN · 4 PHASES</span>
       </div>
 
+      {/* Circuit trace timeline */}
+      <div className="fade-in" style={{ padding: '20px 80px 0' }}>
+        <div className="circuit-trace" />
+      </div>
+
       {/* Phase chapters — each one a full-width horizontal band */}
-      <div className="fade-in">
+      <div className="fade-in stagger-reveal">
         {phases.map(({ id, num, title, status, statusColor, period, pct, summary, items }) => (
-          <div key={id} style={{ borderBottom: '1px solid #111', position: 'relative', overflow: 'hidden' }}>
+          <div key={id} className="phase-band" style={{ borderBottom: '1px solid #111', position: 'relative', overflow: 'hidden' }}>
 
             {/* Watermark number */}
             <div style={{
@@ -115,14 +120,14 @@ export default function Roadmap() {
                   <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.2rem, 1.8vw, 1.7rem)', color: '#e8e6e3', letterSpacing: '-0.02em', marginBottom: '4px' }}>{title}</div>
                   <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#444', letterSpacing: '0.05em' }}>{period}</div>
                 </div>
-                <p style={{ fontSize: '12px', color: '#444', lineHeight: 1.7, maxWidth: '420px', margin: 0, flexShrink: 1 }}>{summary}</p>
+                <p className="glow-text" style={{ fontSize: '12px', color: '#444', lineHeight: 1.7, maxWidth: '420px', margin: 0, flexShrink: 1 }}>{summary}</p>
               </div>
 
               {/* Status + progress */}
               <div style={{ padding: '20px 48px 20px 24px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', gap: '10px', minWidth: '160px' }}>
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: statusColor, letterSpacing: '0.2em', border: `1px solid ${statusColor}44`, padding: '3px 10px' }}>{status}</span>
                 <div style={{ width: '100px', height: '2px', background: '#111', position: 'relative' }}>
-                  <div style={{ position: 'absolute', left: 0, top: 0, height: '2px', width: `${pct}%`, background: statusColor, transition: 'width 0.4s' }} />
+                  <div className="progress-fill" style={{ background: statusColor, width: `${pct}%` }} />
                 </div>
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: pct === 100 ? statusColor : '#333' }}>{pct}% done</span>
               </div>
@@ -134,13 +139,16 @@ export default function Roadmap() {
               <div style={{ borderRight: `1px solid ${statusColor}22`, background: `${statusColor}03` }} />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#0a0a0a', margin: '1px 0 0 0' }}>
                 {items.map(({ done, text }) => (
-                  <div key={text} style={{
+                  <div key={text} className="row-item" style={{
                     display: 'flex', gap: '12px', alignItems: 'flex-start',
                     padding: '14px 32px',
                     background: done ? '#050505' : '#020202',
                   }}>
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: done ? statusColor : '#3a3a3a', flexShrink: 0, marginTop: '2px' }}>{done ? '✓' : '○'}</span>
-                    <span style={{ fontSize: '12px', color: done ? '#888' : '#555', lineHeight: 1.65 }}>{text}</span>
+                    <span
+                      style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: done ? statusColor : '#3a3a3a', flexShrink: 0, marginTop: '2px' }}
+                      className={done ? 'check-done' : ''}
+                    >{done ? '✓' : '○'}</span>
+                    <span className="glow-text" style={{ fontSize: '12px', color: done ? '#888' : '#555', lineHeight: 1.65 }}>{text}</span>
                   </div>
                 ))}
               </div>

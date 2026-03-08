@@ -51,26 +51,27 @@ const domains = [
 export default function Domains() {
   const [active, setActive] = useState('pandemic')
   const d = domains.find((x) => x.id === active)
+  const activeIdx = domains.findIndex((x) => x.id === active)
 
   return (
     <section id="domains" style={{ background: '#000' }}>
 
       {/* Section label bar */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderBottom: '1px solid #161616', borderTop: '1px solid #161616' }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>03 — Domains</span>
+      <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderBottom: '1px solid #161616', borderTop: '1px solid #161616' }}>
+        <span className="type-label" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>03 — Domains</span>
         <div style={{ flex: 1, height: '1px', background: '#161616' }} />
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.2em' }}>PANDEMIC · ECOSYSTEM · EVOLUTION</span>
       </div>
 
       {/* Three full-width domain strips — the selector IS the hero */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#0d0d0d' }}>
+      <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#0d0d0d' }}>
         {domains.map((dm, idx) => (
           <button key={dm.id} onClick={() => setActive(dm.id)} style={{
             all: 'unset', cursor: 'pointer',
             background: active === dm.id ? '#0a0a0a' : '#020202',
             padding: '40px 36px 36px',
             overflow: 'hidden',
-            borderBottom: active === dm.id ? `3px solid ${dm.color}` : '3px solid #0d0d0d',
+            borderBottom: '3px solid transparent',
             display: 'flex', flexDirection: 'column', gap: '16px',
             transition: 'background 0.15s',
           }}>
@@ -90,10 +91,18 @@ export default function Domains() {
             </div>
           </button>
         ))}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, zIndex: 1, pointerEvents: 'none',
+          width: '33.333%', height: '3px',
+          background: domains[activeIdx].color,
+          transform: `translateX(${activeIdx * 100}%)`,
+          transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease',
+          boxShadow: `0 0 10px ${domains[activeIdx].color}55`,
+        }} />
       </div>
 
       {/* Detail — 3-col strip: models | params | outputs */}
-      <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#0d0d0d' }}>
+      <div key={active} className="tab-panel fade-in stagger-reveal" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#0d0d0d' }}>
         <div style={{ background: '#050505', padding: '36px 40px' }}>
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: d.color, letterSpacing: '0.25em', marginBottom: '22px', opacity: 0.5 }}>MODELS</div>
           {d.models.map((m, i) => (
@@ -106,17 +115,21 @@ export default function Domains() {
         <div style={{ background: '#040404', padding: '36px 40px' }}>
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: d.color, letterSpacing: '0.25em', marginBottom: '22px', opacity: 0.5 }}>PARAMETERS</div>
           {d.params.map((p) => (
-            <div key={p} style={{ padding: '11px 0', borderBottom: '1px solid #0a0a0a' }}>
-              <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.5 }}>{p}</span>
+            <div key={p} className="row-item" style={{ padding: '11px 0', borderBottom: '1px solid #0a0a0a' }}>
+              <span
+                style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.5, transition: 'color 0.2s, filter 0.2s' }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = d.color; e.currentTarget.style.filter = 'brightness(1.4)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = '#3a3a3a'; e.currentTarget.style.filter = '' }}
+              >{p}</span>
             </div>
           ))}
         </div>
         <div style={{ background: '#050505', padding: '36px 40px' }}>
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: d.color, letterSpacing: '0.25em', marginBottom: '22px', opacity: 0.5 }}>OUTPUTS</div>
           {d.outputs.map((o) => (
-            <div key={o} style={{ padding: '12px 0', borderBottom: '1px solid #0a0a0a', display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <div key={o} className="row-item" style={{ padding: '12px 0', borderBottom: '1px solid #0a0a0a', display: 'flex', gap: '12px', alignItems: 'center' }}>
               <div style={{ width: '3px', height: '3px', background: '#252525', flexShrink: 0 }} />
-              <span style={{ fontSize: '13px', color: '#555', lineHeight: 1.4 }}>{o}</span>
+              <span className="glow-text" style={{ fontSize: '13px', color: '#555', lineHeight: 1.4 }}>{o}</span>
             </div>
           ))}
         </div>

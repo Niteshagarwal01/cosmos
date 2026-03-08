@@ -46,14 +46,13 @@ export default function TechStack() {
     <section id="techstack" style={{ position: 'relative', padding: '0', background: '#000' }}>
       {/* Tiny inline header — nothing like a traditional section heading */}
       <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '20px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616', marginBottom: '0' }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>05 — Tech Stack</span>
-        <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#e8e6e3', letterSpacing: '-0.01em' }}>TECH STACK</span>
+        <span className="type-label" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>05 — Tech Stack</span>
         <div style={{ flex: 1, height: '1px', background: '#161616', alignSelf: 'center' }} />
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.15em' }}>16 DEPS · 0 FOR PRESTIGE</span>
       </div>
 
       {/* 2×2 group panels */}
-      <div className="fade-in" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#0e0e0e' }}>
+      <div className="fade-in stagger-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#0e0e0e' }}>
         {groups.map(({ label, color, items }) => (
           <div key={label} style={{ background: '#040404', overflow: 'hidden' }}>
             {/* Group header */}
@@ -66,14 +65,14 @@ export default function TechStack() {
             </div>
             {/* Item rows — 3-col: name | role | why */}
             {items.map(({ name, role, why }) => (
-              <div key={name} style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '0', borderBottom: '1px solid #080808' }}>
+              <div key={name} className="row-item" style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '0', borderBottom: '1px solid #080808' }}>
                 {/* Name + role cell */}
                 <div style={{ padding: '14px 20px 14px 36px', borderRight: '1px solid #0d0d0d' }}>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color, marginBottom: '4px', whiteSpace: 'nowrap' }}>{name}</div>
+                  <div className="tech-name" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color, marginBottom: '4px', whiteSpace: 'nowrap' }}>{name}</div>
                   <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', lineHeight: 1.5 }}>{role}</div>
                 </div>
                 {/* Why cell */}
-                <div style={{ padding: '14px 28px', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.7 }}>{why}</div>
+                <div className="glow-text" style={{ padding: '14px 28px', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.7 }}>{why}</div>
               </div>
             ))}
           </div>

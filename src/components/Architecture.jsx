@@ -54,8 +54,8 @@ export default function Architecture() {
   return (
     <section id="architecture" style={{ position: 'relative', padding: '0', background: '#000' }}>
       {/* Identity bar */}
-      <div style={{ display: 'flex', alignItems: 'center', padding: '22px 80px', borderBottom: '1px solid #161616', borderTop: '1px solid #161616' }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em', textTransform: 'uppercase' }}>04 — Architecture</span>
+      <div className="fade-in" style={{ display: 'flex', alignItems: 'center', padding: '22px 80px', borderBottom: '1px solid #161616', borderTop: '1px solid #161616' }}>
+        <span className="type-label" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em', textTransform: 'uppercase' }}>04 — Architecture</span>
         <div style={{ flex: 1 }} />
         <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.3rem', color: '#1c1c1c', letterSpacing: '-0.02em' }}>5-LAYER EVENT MESH</span>
         <div style={{ marginLeft: '32px', display: 'flex', gap: '20px' }}>
@@ -68,7 +68,7 @@ export default function Architecture() {
       {/* Vertical pipeline — each layer is a full-width row with a HUGE layer ID */}
       <div className="fade-in">
         {layers.map(({ id, name, tech, color, desc, detail }, idx) => (
-          <div key={id} style={{ display: 'grid', gridTemplateColumns: '160px 320px 1fr 1fr', gap: '1px', background: '#0c0c0c', borderBottom: '1px solid #0c0c0c' }}>
+          <div key={id} className="row-item arch-layer" style={{ display: 'grid', gridTemplateColumns: '160px 320px 1fr 1fr', gap: '1px', background: '#0c0c0c', borderBottom: '1px solid #0c0c0c' }}>
             {/* Giant layer ID */}
             <div style={{ background: idx % 2 === 0 ? '#030303' : '#040404', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '140px', position: 'relative', overflow: 'hidden' }}>
               <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(5rem, 7vw, 8rem)', color: '#0d0d0d', lineHeight: 1, userSelect: 'none' }}>{id}</span>
@@ -82,11 +82,11 @@ export default function Architecture() {
             </div>
             {/* Description */}
             <div style={{ background: idx % 2 === 0 ? '#040404' : '#050505', padding: '32px 36px', display: 'flex', alignItems: 'center' }}>
-              <p style={{ fontSize: '13px', color: '#4a4a4a', lineHeight: 1.75, margin: 0 }}>{desc}</p>
+              <p className="glow-text" style={{ fontSize: '13px', color: '#4a4a4a', lineHeight: 1.75, margin: 0 }}>{desc}</p>
             </div>
             {/* Detail / command */}
             <div style={{ background: idx % 2 === 0 ? '#030303' : '#040404', padding: '32px 36px', display: 'flex', alignItems: 'center' }}>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9.5px', color, opacity: 0.35, lineHeight: 1.65, wordBreak: 'break-word' }}>{detail}</div>
+              <div className="arch-detail" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9.5px', color, opacity: 0.35, lineHeight: 1.65, wordBreak: 'break-word' }}>{detail}</div>
             </div>
           </div>
         ))}
@@ -97,7 +97,7 @@ export default function Architecture() {
         <div style={{ marginTop: '1px', background: '#0c0c0c' }}>
           <div style={{ padding: '14px 24px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: '#0c0c0c' }}>
             {flow.map(({ from, to, label, color }) => (
-              <div key={label} style={{ padding: '14px 20px', background: '#050505', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+              <div key={label} className="row-item" style={{ padding: '14px 20px', background: '#050505', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
                 <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', flexShrink: 0, marginTop: '1px' }}>{from}</span>
                 <span style={{ color, fontSize: '10px', flexShrink: 0, marginTop: '1px' }}>→</span>
                 <div>
