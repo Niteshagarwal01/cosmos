@@ -246,8 +246,11 @@ body {
   transition: filter 0.25s ease, background 0.25s ease;
 }
 .row-item:hover {
-  filter: brightness(1.8);
-  background: rgba(200, 255, 0, 0.014) !important;
+  filter: brightness(2.2);
+  background: rgba(200, 255, 0, 0.025) !important;
+}
+.row-item:hover .tech-name {
+  text-shadow: 0 0 14px currentColor;
 }
 
 .card-lift {
@@ -276,6 +279,16 @@ body {
 }
 .hero-title-glow {
   animation: breatheGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes breathePulse {
+  0%, 100% { opacity: 0.5; box-shadow: none; }
+  50%       { opacity: 1;   box-shadow: 0 0 10px currentColor; }
+}
+
+@keyframes scanBar {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }
 
 @keyframes ctaPulse {

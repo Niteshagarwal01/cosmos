@@ -73,9 +73,10 @@ export default function Roadmap() {
     <section id="roadmap" style={{ position: 'relative', padding: '0', background: '#000' }}>
 
       {/* Label bar */}
-      <div className="fade-in" style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616' }}>
-        <span className="type-label" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#555', letterSpacing: '0.25em' }}>08 — Roadmap</span>
-        <div style={{ flex: 1, height: '1px', background: '#161616' }} />
+      <div className="fade-in" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '20px', padding: '22px 80px', borderTop: '1px solid #161616', borderBottom: '1px solid #161616', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', bottom: 0, left: 0, height: '2px', width: '100%', background: 'linear-gradient(90deg, transparent 0%, #c8ff00 50%, transparent 100%)', animation: 'scanBar 3s ease-in-out infinite' }} />
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#c8ff0088', letterSpacing: '0.25em', textTransform: 'uppercase', textShadow: '0 0 12px #c8ff0055' }}>08 — Roadmap</span>
+        <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, #c8ff0022, transparent)' }} />
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#333', letterSpacing: '0.2em' }}>10-WEEK SHIP PLAN · 4 PHASES</span>
       </div>
 

@@ -49,51 +49,76 @@ export default function TechStack() {
   return (
     <section id="techstack" style={{ position: 'relative', background: '#000' }}>
 
-      {/* Header bar */}
+      {/* Header bar with animated scan line */}
       <div className="fade-in" style={{
+        position: 'relative',
         display: 'flex', alignItems: 'center', gap: '20px',
         padding: '22px 64px',
         borderTop: '1px solid #161616', borderBottom: '1px solid #161616',
+        overflow: 'hidden',
       }}>
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#444', letterSpacing: '0.25em' }}>05 — TECH STACK</span>
-        <div style={{ flex: 1, height: '1px', background: '#161616' }} />
-        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#222', letterSpacing: '0.15em' }}>16 DEPS · 0 FOR PRESTIGE</span>
+        {/* Animated lime scan bar */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0,
+          height: '2px', width: '100%',
+          background: 'linear-gradient(90deg, transparent 0%, #c8ff00 50%, transparent 100%)',
+          animation: 'scanBar 3s ease-in-out infinite',
+        }} />
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#c8ff0088', letterSpacing: '0.25em', textTransform: 'uppercase', textShadow: '0 0 12px #c8ff0055' }}>05 — Tech Stack</span>
+        <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, #c8ff0022, transparent)' }} />
+        <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#333', letterSpacing: '0.15em' }}>16 DEPS · 0 FOR PRESTIGE</span>
       </div>
 
-      {/* One horizontal band per group — zero cross-column alignment issues */}
+      {/* One horizontal band per group */}
       {groups.map(({ label, index, color, items }, gi) => (
         <div
           key={label}
           className="fade-in"
           style={{
             display: 'grid',
-            gridTemplateColumns: '220px 1fr',
+            gridTemplateColumns: '260px 1fr',
             borderBottom: '1px solid #111',
+            borderTop: `1px solid ${color}33`,
           }}
         >
-          {/* Left: group identity */}
+          {/* Left: group identity with color glow */}
           <div style={{
             padding: '32px 28px',
             borderRight: `1px solid ${color}22`,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            background: '#040404',
+            background: `radial-gradient(ellipse at 0% 50%, ${color}08 0%, transparent 70%), #040404`,
+            position: 'relative',
+            overflow: 'hidden',
           }}>
+            {/* Vertical color bar on left edge */}
+            <div style={{
+              position: 'absolute', left: 0, top: 0, bottom: 0, width: '2px',
+              background: `linear-gradient(to bottom, transparent, ${color}88, transparent)`,
+            }} />
             <div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', letterSpacing: '0.2em', marginBottom: '12px' }}>{index}</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: `${color}55`, letterSpacing: '0.2em', marginBottom: '12px' }}>{index}</div>
               <div style={{
                 fontFamily: 'Syne, sans-serif',
                 fontWeight: 800,
-                fontSize: '22px',
-                color: '#181818',
-                lineHeight: 1.1,
-                letterSpacing: '-0.02em',
+                fontSize: '16px',
+                color: color,
+                lineHeight: 1.15,
+                letterSpacing: '0.04em',
                 textTransform: 'uppercase',
+                wordBreak: 'break-word',
+                transition: 'color 0.3s, text-shadow 0.3s',
+                textShadow: `0 0 18px ${color}55`,
               }}>{label}</div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '24px' }}>
-              <div style={{ width: '20px', height: '2px', background: color }} />
+              {/* Animated color bar */}
+              <div style={{
+                width: '20px', height: '2px', background: color,
+                boxShadow: `0 0 8px ${color}`,
+                animation: 'breathePulse 2s ease-in-out infinite',
+              }} />
               <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color, opacity: 0.6, letterSpacing: '0.15em' }}>
                 {items.length} PKG
               </span>
@@ -113,17 +138,24 @@ export default function TechStack() {
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '10px',
+                  transition: 'background 0.3s',
                 }}
               >
                 {/* Accent dot */}
-                <div style={{ width: '5px', height: '5px', background: color, opacity: 0.5 }} />
-                {/* Name */}
                 <div style={{
+                  width: '5px', height: '5px', background: color,
+                  boxShadow: `0 0 6px ${color}`,
+                  animation: 'breathePulse 2s ease-in-out infinite',
+                  animationDelay: `${ii * 0.2}s`,
+                }} />
+                {/* Name */}
+                <div className="tech-name" style={{
                   fontFamily: 'JetBrains Mono, monospace',
                   fontSize: '12px',
                   color,
                   fontWeight: 500,
                   letterSpacing: '0.02em',
+                  transition: 'text-shadow 0.3s',
                 }}>{name}</div>
                 {/* Role badge */}
                 <div style={{
@@ -132,11 +164,12 @@ export default function TechStack() {
                   color: '#333',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
-                  borderLeft: `2px solid ${color}44`,
+                  borderLeft: `2px solid ${color}55`,
                   paddingLeft: '7px',
+                  transition: 'border-color 0.3s, color 0.3s',
                 }}>{role}</div>
                 {/* Why */}
-                <div style={{
+                <div className="glow-text" style={{
                   fontFamily: 'Space Grotesk, sans-serif',
                   fontSize: '11px',
                   color: '#3a3a3a',
