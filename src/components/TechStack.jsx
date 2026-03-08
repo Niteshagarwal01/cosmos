@@ -51,32 +51,54 @@ export default function TechStack() {
         <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#2a2a2a', letterSpacing: '0.15em' }}>16 DEPS · 0 FOR PRESTIGE</span>
       </div>
 
-      {/* 2×2 group panels */}
-      <div className="fade-in stagger-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#0e0e0e' }}>
-        {groups.map(({ label, color, items }) => (
-          <div key={label} style={{ background: '#040404', overflow: 'hidden' }}>
-            {/* Group header */}
-            <div style={{ padding: '28px 36px 20px', borderBottom: `1px solid ${color}33`, overflow: 'hidden' }}>
-              <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.6rem, 2.2vw, 2.6rem)', color: '#111', lineHeight: 0.92, marginBottom: '10px', letterSpacing: '-0.02em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label.toUpperCase()}</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{ width: '16px', height: '2px', background: color }} />
-                <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color, letterSpacing: '0.2em', opacity: 0.7 }}>{items.length} PACKAGES</span>
-              </div>
-            </div>
-            {/* Item rows — 3-col: name | role | why */}
-            {items.map(({ name, role, why }) => (
-              <div key={name} className="row-item" style={{ display: 'grid', gridTemplateColumns: '140px 1fr', gap: '0', borderBottom: '1px solid #080808' }}>
-                {/* Name + role cell */}
-                <div style={{ padding: '14px 20px 14px 36px', borderRight: '1px solid #0d0d0d' }}>
-                  <div className="tech-name" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color, marginBottom: '4px', whiteSpace: 'nowrap' }}>{name}</div>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', lineHeight: 1.5 }}>{role}</div>
+      {/* 2 independent columns — each stacks its own panels freely, no cross-column row stretching */}
+      <div className="fade-in stagger-reveal" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: '#0e0e0e', alignItems: 'start' }}>
+        {/* Left column: groups 0 & 2 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+          {[groups[0], groups[2]].map(({ label, color, items }) => (
+            <div key={label} style={{ background: '#040404', overflow: 'hidden' }}>
+              <div style={{ padding: '28px 36px 20px', borderBottom: `1px solid ${color}33`, overflow: 'hidden' }}>
+                <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.6rem, 2.2vw, 2.6rem)', color: '#111', lineHeight: 0.92, marginBottom: '10px', letterSpacing: '-0.02em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label.toUpperCase()}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '16px', height: '2px', background: color }} />
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color, letterSpacing: '0.2em', opacity: 0.7 }}>{items.length} PACKAGES</span>
                 </div>
-                {/* Why cell */}
-                <div className="glow-text" style={{ padding: '14px 28px', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.7 }}>{why}</div>
               </div>
-            ))}
-          </div>
-        ))}
+              {items.map(({ name, role, why }) => (
+                <div key={name} className="row-item" style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '0', borderBottom: '1px solid #080808', minHeight: '88px' }}>
+                  <div style={{ padding: '14px 20px 14px 36px', borderRight: '1px solid #0d0d0d', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div className="tech-name" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color, marginBottom: '4px', whiteSpace: 'nowrap' }}>{name}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', lineHeight: 1.5 }}>{role}</div>
+                  </div>
+                  <div className="glow-text" style={{ padding: '14px 28px', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.7, display: 'flex', alignItems: 'center' }}>{why}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+        {/* Right column: groups 1 & 3 */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+          {[groups[1], groups[3]].map(({ label, color, items }) => (
+            <div key={label} style={{ background: '#040404', overflow: 'hidden' }}>
+              <div style={{ padding: '28px 36px 20px', borderBottom: `1px solid ${color}33`, overflow: 'hidden' }}>
+                <div style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(1.6rem, 2.2vw, 2.6rem)', color: '#111', lineHeight: 0.92, marginBottom: '10px', letterSpacing: '-0.02em', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label.toUpperCase()}</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ width: '16px', height: '2px', background: color }} />
+                  <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color, letterSpacing: '0.2em', opacity: 0.7 }}>{items.length} PACKAGES</span>
+                </div>
+              </div>
+              {items.map(({ name, role, why }) => (
+                <div key={name} className="row-item" style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '0', borderBottom: '1px solid #080808', minHeight: '88px' }}>
+                  <div style={{ padding: '14px 20px 14px 36px', borderRight: '1px solid #0d0d0d', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div className="tech-name" style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color, marginBottom: '4px', whiteSpace: 'nowrap' }}>{name}</div>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '9px', color: '#333', lineHeight: 1.5 }}>{role}</div>
+                  </div>
+                  <div className="glow-text" style={{ padding: '14px 28px', fontSize: '11px', color: '#3a3a3a', lineHeight: 1.7, display: 'flex', alignItems: 'center' }}>{why}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )
