@@ -4,7 +4,7 @@ const links = [
   { label: 'Domains',      href: '#domains'      },
   { label: 'Architecture', href: '#architecture' },
   { label: 'Tech Stack',   href: '#techstack'    },
-  { label: 'Wireframes',   href: '#wireframes'   },
+  { label: 'Research',     href: '#research'     },
   { label: 'Dev Guide',    href: '#devguide'     },
   { label: 'Roadmap',      href: '#roadmap'      },
 ]

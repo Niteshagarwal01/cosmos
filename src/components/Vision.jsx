@@ -49,7 +49,7 @@ export default function Vision() {
         <div style={{ background: '#020202', display: 'flex', flexDirection: 'column' }}>
           <div style={{ padding: '40px 44px 32px', borderBottom: '1px solid #0d0d0d' }}>
             <h2 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: 'clamp(2.2rem, 3.5vw, 3.5rem)', lineHeight: 0.92, letterSpacing: '-0.03em', color: '#e8e6e3', margin: '0 0 14px 0' }}>
-              ONE SOLVER<br /><span style={{ color: '#c8ff00' }}>ALL DOMAINS</span>
+              ONE SOLVER<br /><span style={{ color: '#c8ff00' }}>ALL DOMAIN</span>
             </h2>
             <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#2a2a2a', lineHeight: 1.7, margin: 0 }}>
               Every biological sim is a special case of the same generalised ODE. We prove it by running all three from one solver.
