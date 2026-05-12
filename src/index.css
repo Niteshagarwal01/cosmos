@@ -597,3 +597,36 @@ body::after {
   border-left: 2px solid transparent;
 }
 .principle-card:hover { background: #080808 !important; border-left-color: rgba(200,255,0,0.18) !important; }
+
+/* ─── Shared button utilities ─────────────────────────────── */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; font-weight: 600;
+  padding: 12px 28px; cursor: pointer; border: none;
+  background: #c8ff00; color: #000;
+  transition: filter 0.15s, transform 0.1s;
+  user-select: none;
+}
+.btn-primary:hover  { filter: brightness(1.12); }
+.btn-primary:active { transform: scale(0.97); }
+
+.btn-outline {
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.2em; font-weight: 600;
+  padding: 12px 28px; cursor: pointer;
+  background: transparent; color: #c8ff00;
+  border: 1px solid rgba(200,255,0,0.25);
+  transition: border-color 0.15s, color 0.15s;
+  user-select: none;
+}
+.btn-outline:hover { border-color: rgba(200,255,0,0.55); color: #d8ff44; }
+
+/* ─── SimLab stat value — never overflow card ─────────────── */
+.sim-stat-value {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px;
+  line-height: 1; margin-bottom: 6px;
+  max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+

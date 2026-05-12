@@ -10,6 +10,7 @@ import Domains from './components/Domains'
 import Architecture from './components/Architecture'
 import TechStack from './components/TechStack'
 import Research from './components/Research'
+import SimLab from './components/SimLab'
 import DevGuide from './components/DevGuide'
 import Roadmap from './components/Roadmap'
 import Footer from './components/Footer'
@@ -49,7 +50,7 @@ export default function App() {
       (entries) => entries.forEach(e => e.target.classList.toggle('section-active', e.isIntersecting)),
       { threshold: 0.35 }
     )
-    ;['problem','vision','domains','architecture','techstack','research','devguide','roadmap']
+    ;['problem','vision','domains','architecture','techstack','research','simlab','devguide','roadmap']
       .forEach(id => { const el = document.getElementById(id); if (el) sectionObs.observe(el) })
 
     return () => { observer.disconnect(); sectionObs.disconnect() }
@@ -125,6 +126,8 @@ export default function App() {
           <TechStack />
           <hr className="rule" />
           <Research />
+          <hr className="rule" />
+          <SimLab />
           <hr className="rule" />
           <DevGuide />
           <hr className="rule" />

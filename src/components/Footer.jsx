@@ -5,6 +5,7 @@ const links = [
   { label: 'Architecture', href: '#architecture' },
   { label: 'Tech Stack',   href: '#techstack'    },
   { label: 'Research',     href: '#research'     },
+  { label: 'Sim Lab',      href: '#simlab'       },
   { label: 'Dev Guide',    href: '#devguide'     },
   { label: 'Roadmap',      href: '#roadmap'      },
 ]

@@ -4,7 +4,7 @@ export default function Navbar() {
   const [active, setActive] = useState('')
 
   useEffect(() => {
-    const ids = ['problem', 'vision', 'domains', 'architecture', 'techstack', 'wireframes', 'devguide', 'roadmap']
+    const ids = ['problem', 'vision', 'domains', 'architecture', 'techstack', 'research', 'simlab', 'devguide', 'roadmap']
     const obs = new IntersectionObserver(
       (entries) => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id) }),
       { threshold: 0.35 }
@@ -90,6 +90,8 @@ export default function Navbar() {
           ['Domains',      '#domains'     ],
           ['Architecture', '#architecture'],
           ['Tech',         '#techstack'   ],
+          ['Sim Lab',      '#simlab'      ],
+          ['Dev Guide',    '#devguide'    ],
           ['Roadmap',      '#roadmap'     ],
         ].map(([label, href]) => {
           const isActive = active === href.slice(1)
